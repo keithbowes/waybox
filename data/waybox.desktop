@@ -6,3 +6,4 @@ Comment[eo]=Komponilo de Wayland, kiu similas je Openbox
 Exec=waybox
 Icon=waybox
 Type=Application
+DesktopNames=waybox;wlroots
