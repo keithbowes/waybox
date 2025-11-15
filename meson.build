@@ -29,7 +29,7 @@ inc_dir = include_directories('include')
 if get_option('wlroots-version') != ''
   wlroots_version = get_option('wlroots-version')
 else
-  wlroots_version = ['wlroots-0.20', 'wlroots-0.19', 'wlroots-0.18']
+  wlroots_version = ['wlroots-0.20', 'wlroots-0.19']
 endif
 
 libevdev = dependency('libevdev')

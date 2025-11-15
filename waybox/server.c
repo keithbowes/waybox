@@ -1,13 +1,11 @@
 #include <wlr/types/wlr_data_control_v1.h>
 #include <wlr/types/wlr_fractional_scale_v1.h>
 #include <wlr/types/wlr_viewporter.h>
+#include <wlr/types/wlr_xdg_toplevel_icon_v1.h>
 
 #include "idle.h"
 #include "waybox/server.h"
 #include "waybox/xdg_shell.h"
-#if WLR_CHECK_VERSION(0, 19, 0)
-#	include <wlr/types/wlr_xdg_toplevel_icon_v1.h>
-#endif
 
 bool wb_create_backend(struct wb_server* server) {
 	/* The Wayland display is managed by libwayland. It handles accepting
@@ -125,11 +123,10 @@ bool wb_start_server(struct wb_server* server) {
 
 	wlr_fractional_scale_manager_v1_create(server->wl_display, 1);
 	wlr_viewporter_create(server->wl_display);
-#if WLR_CHECK_VERSION(0, 19, 0)
+
 	struct wlr_xdg_toplevel_icon_manager_v1 * icon_manager = wlr_xdg_toplevel_icon_manager_v1_create(server->wl_display, 1);
 	int sizes[] = {16, 24, 32, 48, 64};
 	wlr_xdg_toplevel_icon_manager_v1_set_sizes(icon_manager, (int *) sizes, 5);
-#endif
 
 	return true;
 }
