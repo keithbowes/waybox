@@ -24,19 +24,18 @@ wayland_scanner_client = generator(
 protocols = [
   [wl_protocol_dir, 'stable/xdg-shell/xdg-shell.xml'],
   [wl_protocol_dir, 'staging/ext-idle-notify/ext-idle-notify-v1.xml'],
+  [wl_protocol_dir, 'staging/ext-image-copy-capture/ext-image-copy-capture-v1.xml'],
   [wl_protocol_dir, 'unstable/idle-inhibit/idle-inhibit-unstable-v1.xml'],
   [wl_protocol_dir, 'unstable/primary-selection/primary-selection-unstable-v1.xml'],
   [wl_protocol_dir, 'unstable/xdg-decoration/xdg-decoration-unstable-v1.xml'],
   [wl_protocol_dir, 'unstable/xdg-output/xdg-output-unstable-v1.xml'],
   'wlr-gamma-control-unstable-v1.xml',
   'wlr-layer-shell-unstable-v1.xml',
-  'wlr-screencopy-unstable-v1.xml',
 ]
 
 client_protocols = [
   [wl_protocol_dir, 'unstable/idle-inhibit/idle-inhibit-unstable-v1.xml'],
   'wlr-layer-shell-unstable-v1.xml',
-  'wlr-screencopy-unstable-v1.xml',
 ]
 
 wl_protos_src = []

@@ -108,7 +108,8 @@ bool wb_start_server(struct wb_server* server) {
 	server->gamma_control_set_gamma.notify = handle_gamma_control_set_gamma;
 	wl_signal_add(&server->gamma_control_manager->events.set_gamma, &server->gamma_control_set_gamma);
 
-	wlr_screencopy_manager_v1_create(server->wl_display);
+	wlr_ext_image_copy_capture_manager_v1_create(server->wl_display, 1);
+	wlr_ext_output_image_capture_source_manager_v1_create(server->wl_display, 1);
 	create_idle_manager(server);
 
 	wl_list_init(&server->toplevels);
