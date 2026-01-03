@@ -1,4 +1,4 @@
-#include <wlr/types/wlr_data_control_v1.h>
+#include <wlr/types/wlr_ext_data_control_v1.h>
 #include <wlr/types/wlr_fractional_scale_v1.h>
 #include <wlr/types/wlr_viewporter.h>
 #include <wlr/types/wlr_xdg_toplevel_icon_v1.h>
@@ -97,7 +97,7 @@ bool wb_start_server(struct wb_server* server) {
 	wlr_log(WLR_INFO, "%s: WAYLAND_DISPLAY=%s", _("Running Wayland compositor on Wayland display"), socket);
 	setenv("WAYLAND_DISPLAY", socket, true);
 
-	wlr_data_control_manager_v1_create(server->wl_display);
+	wlr_ext_data_control_manager_v1_create(server->wl_display, 1);
 	wlr_data_device_manager_create(server->wl_display);
 
 	server->foreign_toplevel_list =
