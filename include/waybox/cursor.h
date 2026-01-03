@@ -25,6 +25,7 @@ struct wb_cursor {
 	struct wl_listener cursor_axis;
 	struct wl_listener cursor_frame;
 
+	struct wl_listener pointer_focus_change;
 	struct wl_listener request_cursor;
 };
 

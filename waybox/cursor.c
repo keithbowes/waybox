@@ -122,6 +122,18 @@ static void handle_cursor_motion_absolute(struct wl_listener *listener, void *da
 	process_cursor_motion(cursor->server, event->time_msec);
 }
 
+static void handle_pointer_focus_change(struct wl_listener *listener, void *data) {
+	struct wb_cursor *cursor = wl_container_of(
+		listener, cursor, pointer_focus_change);
+	/* This event is raised when the pointer focus is changed, including when the
+	 * client is closed. We set the cursor image to its default if target surface
+	 * is NULL */
+	struct wlr_seat_pointer_focus_change_event *event = data;
+	if (event->new_surface == NULL) {
+		wlr_cursor_set_xcursor(cursor->cursor, cursor->xcursor_manager, "default");
+	}
+}
+
 static void handle_cursor_button(struct wl_listener *listener, void *data) {
 	/* This event is forwarded by the cursor when a pointer emits a button
 	 * event. */
@@ -213,6 +225,10 @@ struct wb_cursor *wb_cursor_create(struct wb_server *server) {
 	cursor->cursor_frame.notify = handle_cursor_frame;
 	wl_signal_add(&cursor->cursor->events.frame, &cursor->cursor_frame);
 
+	cursor->pointer_focus_change.notify = handle_pointer_focus_change;
+	wl_signal_add(&server->seat->seat->pointer_state.events.focus_change,
+			&cursor->pointer_focus_change);
+
 	cursor->request_cursor.notify = handle_cursor_request;
 	wl_signal_add(&server->seat->seat->events.request_set_cursor,
 			&cursor->request_cursor);
@@ -234,6 +250,8 @@ void wb_cursor_destroy(struct wb_cursor *cursor) {
 	wl_list_remove(&cursor->cursor_button.link);
 	wl_list_remove(&cursor->cursor_axis.link);
 	wl_list_remove(&cursor->cursor_frame.link);
+
+	wl_list_remove(&cursor->pointer_focus_change.link);
 
 	wlr_xcursor_manager_destroy(cursor->xcursor_manager);
 	wlr_cursor_destroy(cursor->cursor);
